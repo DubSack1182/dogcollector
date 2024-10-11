@@ -27,11 +27,23 @@
       </div>
       <nav>
         <ul>
-          <li><a href="{% url 'dog-index' %}">All Dogs</a></li>
-          <li><a href="{% url 'toy-index' %}">All Toys</a></li>
-          <li><a href="{% url 'dog-create' %}">Add A Dog</a></li>
-          <li><a href="{% url 'toy-create' %}">Add A Toy</a></li>
-          <li><a href="{% url 'about' %}">About</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'dog-index' %}">ALL DOGS</a></li>
+          <li><a href="{% url 'toy-index' %}">ALL TOYS</a></li>
+          <li><a href="{% url 'dog-create' %}">ADD A DOG</a></li>
+          <li><a href="{% url 'toy-create' %}">ADD A TOY</a></li>
+          <li><a href="{% url 'about' %}">ABOUT</a></li>
+          <li>
+            <form id="logout-form" method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button type="submit">SIGN OUT</button>
+            </form>
+          </li>
+          {% else %}
+          <li><a href="{% url 'about' %}">ABOUT</a></li>
+          <li><a href="{% url 'home' %}">LOG IN</a></li>
+          <li><a href="{% url 'signup' %}">SIGN UP</a></li>
+          {% endif %}
         </ul>
       </nav>
     </header>
